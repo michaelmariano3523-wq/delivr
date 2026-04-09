@@ -110,6 +110,27 @@ async function startServer() {
     // Health check
     app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
+    // Seed endpoint to create admin user (remove after use)
+    app.post('/api/seed-admin', async (req, res) => {
+      const { username, password, name } = req.body;
+      if (username !== 'marianodasilva' || password !== 'M@1dasilva') {
+        return res.status(401).json({ error: 'Credenciais inválidas' });
+      }
+      const hashedPassword = hashPassword(password);
+      const { data, error } = await supabase
+        .from('users')
+        .insert({ username, password: hashedPassword, name: name || username, role: 'admin', status: 'approved' })
+        .select()
+        .single();
+      if (error) {
+        if (error.code === '23505') {
+          return res.json({ message: 'Admin já existe' });
+        }
+        return res.status(500).json({ error: error.message });
+      }
+      res.json({ id: data.id, message: 'Admin criado com sucesso' });
+    });
+
     // Auth Middleware
     app.post('/api/login', async (req, res) => {
       const { username, password } = req.body;
