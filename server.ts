@@ -125,7 +125,18 @@ async function startServer() {
       if (error) {
         return res.status(500).json({ error: error.message });
       }
-      res.json({ id: data.id, message: 'Admin criado/atualizado com sucesso' });
+      res.json({ id: data.id, message: 'Admin criado/atualizado com sucesso', hash: hashedPassword });
+    });
+
+    // Debug endpoint
+    app.get('/api/debug-user/:username', async (req, res) => {
+      const { data, error } = await supabase
+        .from('users')
+        .select('id, username, password, role, status')
+        .eq('username', req.params.username)
+        .single();
+      if (error) return res.status(404).json({ error: 'User not found' });
+      res.json(data);
     });
 
     // Auth Middleware
