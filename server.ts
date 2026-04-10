@@ -113,22 +113,19 @@ async function startServer() {
     // Seed endpoint to create admin user (remove after use)
     app.post('/api/seed-admin', async (req, res) => {
       const { username, password, name } = req.body;
-      if (username !== 'marianodasilva' || password !== 'M@1dasilva') {
-        return res.status(401).json({ error: 'Credenciais inválidas' });
+      if (!username || !password) {
+        return res.status(400).json({ error: 'Username e password são obrigatórios' });
       }
       const hashedPassword = hashPassword(password);
       const { data, error } = await supabase
         .from('users')
-        .insert({ username, password: hashedPassword, name: name || username, role: 'admin', status: 'approved' })
+        .upsert({ username, password: hashedPassword, name: name || username, role: 'admin', status: 'approved' })
         .select()
         .single();
       if (error) {
-        if (error.code === '23505') {
-          return res.json({ message: 'Admin já existe' });
-        }
         return res.status(500).json({ error: error.message });
       }
-      res.json({ id: data.id, message: 'Admin criado com sucesso' });
+      res.json({ id: data.id, message: 'Admin criado/atualizado com sucesso' });
     });
 
     // Auth Middleware
