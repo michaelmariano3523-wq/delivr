@@ -7,11 +7,13 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://delivr-production-1b15.up.railway.app/api/:path*"
+      "destination": "https://delivr-inhi.onrender.com/api/:path*"
     },
     {
       "source": "/ws/:path*",
-      "destination": "https://delivr-production-1b15.up.railway.app/ws/:path*"
+      "destination": "https://delivr-inhi.onrender.com/ws/:path*"
     }
+  ]
+}
   ]
 }

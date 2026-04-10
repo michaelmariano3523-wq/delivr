@@ -16,7 +16,7 @@ import express from 'express';
 import { createServer } from 'http';
 import { WebSocketServer, WebSocket } from 'ws';
 
-const CORS_ORIGINS = process.env.CORS_ORIGINS?.split(',') || ['http://localhost:5173', 'http://localhost:3000', 'https://delivr-frontend.vercel.app', 'https://delivr-5x15-git-main-michaelmariano3.vercel.app', 'https://delivr-production-1b15.up.railway.app'];
+const CORS_ORIGINS = process.env.CORS_ORIGINS?.split(',') || ['http://localhost:5173', 'http://localhost:3000', 'https://delivr-frontend.vercel.app', 'https://delivr-5x15-git-main-michaelmariano3.vercel.app', 'https://delivr-inhi.onrender.com'];
 // vite removed from top-level to save memory in production
 import { createClient } from '@supabase/supabase-js';
 import QRCode from 'qrcode';
