@@ -148,23 +148,24 @@ async function startServer() {
       }
       
       const hashedPassword = hashPassword(password);
+      const sanitized = sanitizeInput(username);
+      console.log('Login attempt:', { username: sanitized, hash: hashedPassword });
+      
       const { data: user, error } = await supabase
         .from('users')
-        .select('id, username, role, status, name, avatar')
-        .eq('username', sanitizeInput(username))
+        .select('id, username, role, status, name, avatar, password')
+        .eq('username', sanitized)
         .single();
+
+      console.log('User found:', user);
 
       if (error || !user) {
         return res.status(401).json({ error: 'Credenciais inválidas' });
       }
       
-      const { data: passwordData } = await supabase
-        .from('users')
-        .select('password')
-        .eq('id', user.id)
-        .single();
-      
-      if (!passwordData || passwordData.password !== hashedPassword) {
+      console.log('Password compare:', { inputHash: hashedPassword, storedHash: user.password, match: user.password === hashedPassword });
+
+      if (user.password !== hashedPassword) {
         return res.status(401).json({ error: 'Credenciais inválidas' });
       }
 
