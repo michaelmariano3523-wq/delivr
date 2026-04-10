@@ -26,8 +26,8 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Initialize Supabase Client
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || '';
+const supabaseUrl = process.env.SUPABASE_URL || 'https://uwgazmeppbvjvhejrdgx.supabase.co';
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3Z2F6bWVwcGJ2anZoZWpyZGd4Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTY5MTQxNiwiZXhwIjoyMDkxMjY3NDE2fQ.HFHEsZCNRgWEGziDZ_9aTj24cDc7viAHGSCupxzN7jc';
 
 console.log('--- Startup Configuration ---');
 console.log('SUPABASE_URL:', supabaseUrl ? 'Set' : 'MISSING');
