@@ -4,14 +4,10 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "framework": "vite",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/:path*",
-      "destination": "https://delivr-inhi.onrender.com/api/:path*"
-    },
-    {
-      "source": "/ws/:path*",
-      "destination": "https://delivr-inhi.onrender.com/ws/:path*"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     }
   ]
 }
